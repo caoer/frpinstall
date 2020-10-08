@@ -23,8 +23,9 @@ USER_NAME='user'
 #============frp download =============
 # frp version
 # please refer to https://github.com/fatedier/frp/releases
+#https://github.com/fatedier/frp/releases/download/v0.34.1/frp_0.34.1_linux_arm64.tar.gz
 #TARFILE='frp_0.20.0_linux_386.tar.gz'
-TARFILE='frp_0.20.0_linux_amd64.tar.gz'
+TARFILE='frp_0.34.1_linux_arm64.tar.gz'
 
 #===========frp configuration file=======
 # frp client configuration filename
@@ -129,9 +130,9 @@ uninstall_frpc_systemd_service() {
 
 install_frps_initd_service() {
     sudo cp ./frps_initd.sh /etc/init.d/${FRPS}
-    # rpm based, install service to be run at boot-time: 
+    # rpm based, install service to be run at boot-time:
     chkconfig ${FRPS} --add
-    # apt based, install service to be run at boot-time: 
+    # apt based, install service to be run at boot-time:
     # update-rc.d ${FRPS} defaults
     service ${FRPS} start
     service ${FRPS} status
@@ -145,9 +146,9 @@ uninstall_frps_initd_service() {
 
 install_frpc_initd_service() {
     sudo cp ./frpc_initd.sh /etc/init.d/${FRPC}
-    # rpm based, install service to be run at boot-time: 
+    # rpm based, install service to be run at boot-time:
     chkconfig ${FRPC} --add
-    # apt based, install service to be run at boot-time: 
+    # apt based, install service to be run at boot-time:
     # update-rc.d ${FRPS} defaults
     service ${FRPC} start
     service ${FRPC} status
@@ -165,8 +166,10 @@ download_frp_64() {
     if [ ! -f $TARFILE ]; then
         echo "download ${TARFILE}"
         #proxychains wget https://github.com/fatedier/frp/releases/download/v0.20.0/${TARFILE}
-        
-        wget https://github.com/fatedier/frp/releases/download/v0.20.0/${TARFILE}
+
+            #https://github.com/fatedier/frp/releases/download/v0.34.1/frp_0.34.1_linux_arm64.tar.gz
+#        wget https://github.com/fatedier/frp/releases/download/v0.20.0/${TARFILE}
+        wget https://github.com/fatedier/frp/releases/download/v0.34.1/${TARFILE}
         echo "extract ${TARFILE}"
         tar -xzvf $TARFILE
     else
@@ -273,11 +276,11 @@ case "$1" in
     ins_frps_s)
         install_frp
         install_frps_service
-            ;;   
+            ;;
     unins_frps_s)
         uninstall_frp
         uninstall_frps_service
-            ;; 
+            ;;
     ins_frp)
         install_frp
             ;;
